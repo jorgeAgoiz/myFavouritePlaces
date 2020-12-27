@@ -1,0 +1,26 @@
+{
+  "name": "myFavouritePlaces",
+  "version": "1.0.0",
+  "description": "Web application to store your favourite places in your own collections.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgeAgoiz/myFavouritePlaces.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorgeAgoiz/myFavouritePlaces/issues"
+  },
+  "homepage": "https://github.com/jorgeAgoiz/myFavouritePlaces#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
