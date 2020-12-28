@@ -1,4 +1,21 @@
-h1 {
-    font-size: 55px;
-    color: red;
+body{
+    background-color: rgb(34, 34, 34);
+}
+
+.navOwnStyle {
+    background-color: rgb(189, 162, 127);
+}
+
+.btnOwnStyle {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: azure;
+}
+.btnOwnStyle:hover {
+    background-color: rgb(34, 34, 34);
+    color: azure;
+}
+
+.titleMain h1, p {
+    color: azure;
 }
