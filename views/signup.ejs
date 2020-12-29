@@ -1,0 +1,26 @@
+<%- include('includes/head.ejs') %>
+
+    <div class="container-fluid">
+        <%- include('includes/navbar.ejs') %>
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-4 text-center mt-5 mb-5">
+                        <form method="POST" action="#">
+                            <label for="inputEmail3" class="">Email</label>
+                            <input type="email" class="form-control" id="inputEmail3" />
+
+                            <label for="password" class="">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" />
+
+                            <label for="confirmPassword" class="">
+                                Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" />
+
+                            <button type="submit" class="btn btn-primary mt-2">Sign in</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <%- include('includes/end.ejs') %>

@@ -1,21 +1,23 @@
-body{
-    background-color: rgb(34, 34, 34);
+body {
+  background-color: rgb(254, 255, 202);
 }
 
 .navOwnStyle {
-    background-color: rgb(189, 162, 127);
+  background-color: rgb(54, 54, 54);
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
-.btnOwnStyle {
-    border: 2px solid black;
-    border-radius: 10px;
-    background-color: azure;
-}
-.btnOwnStyle:hover {
-    background-color: rgb(34, 34, 34);
-    color: azure;
+.linkStyle {
+  color: rgb(255, 255, 255);
+  font-size: calc(1.3em + 1vw);
 }
 
-.titleMain h1, p {
-    color: azure;
+.linkStyle:hover {
+  color: rgb(156, 83, 83);
+}
+
+.titleMain h1,
+p {
+  color: rgb(0, 0, 0);
 }
