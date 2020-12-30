@@ -5,13 +5,18 @@ const authRoute = express.Router();
 //Import controllers
 const { main, signup, signin, menu } = require("../controllers/auth");
 
-//Routes
+// *********** Routes ***********
+
+// GET => "/"
 authRoute.get("/", main);
 
+// GET => "/signup"
 authRoute.get("/signup", signup);
 
-authRoute.get("/signin", signin);
+// POST => "/signup"
+authRoute.post("/signup", menu);
 
-authRoute.post("/menu", menu);
+// GET => "/signin"
+authRoute.get("/signin", signin);
 
 module.exports = { authRoute };

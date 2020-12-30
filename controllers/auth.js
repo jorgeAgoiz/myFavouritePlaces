@@ -17,7 +17,7 @@ exports.signin = (req, res, next) => {
 };
 
 exports.menu = (req, res, next) => {
-  res.render("usermenu.ejs", {
-    pageTitle: "Menu",
-  });
+  const { email, password, confirmPassword } = req.body;
+
+  console.log(req.body);
 };
