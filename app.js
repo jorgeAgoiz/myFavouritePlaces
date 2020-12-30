@@ -10,6 +10,9 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
+//Import routes
+const { authRoute } = require("./routes/auth");
+
 //Middlewares
 app.use(express.static(path.join(__dirname, "public"))); //To set the static files (css, js, etc)
 app.use(express.json());
@@ -19,18 +22,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-//Route to test
-app.get("/", (req, res, next) => {
-  res.render("main.ejs", {
-    pageTitle: "Probando Probando",
-  });
-});
-
-app.get("/signup", (req, res, next) => {
-  res.render("signup.ejs", {
-    pageTitle: "Sign Up",
-  });
-});
+//Set middlewares routes
+app.use(authRoute);
 
 //Listen in .env.PORT
 app.listen(PORT, () => {

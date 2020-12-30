@@ -6,6 +6,7 @@ body {
   background-color: rgb(54, 54, 54);
   padding-top: 1em;
   padding-bottom: 1em;
+  font-family: "Bebas Neue", cursive;
 }
 
 .linkStyle {
@@ -17,7 +18,40 @@ body {
   color: rgb(156, 83, 83);
 }
 
-.titleMain h1,
-p {
+.titleMain h1 {
   color: rgb(0, 0, 0);
+  font-family: "Bangers", cursive;
+  font-size: calc(2.2em + 1.6vw);
+}
+.titleMain p {
+  font-family: "Euphoria Script", cursive;
+  font-size: calc(1.4em + 1.2vw);
+  font-weight: bold;
+}
+
+.labelForm {
+  font-family: "Bebas Neue", cursive;
+  font-size: calc(0.8em + 1vw);
+}
+.inputStyles {
+  border: 1px solid black;
+}
+
+.btnStyle {
+  background-color: rgb(167, 167, 167);
+  font-size: calc(0.8em + 0.8vw);
+  font-family: "Bebas Neue", cursive;
+}
+.btnStyle:hover {
+  background-color: rgb(108, 131, 84);
+  border: 2px solid black;
+}
+.btnStyleTwo {
+  font-size: calc(1.2em + 1vw);
+  background-color: rgb(167, 167, 167);
+  font-family: "Bebas Neue", cursive;
+}
+.btnStyleTwo:hover {
+  background-color: rgb(108, 131, 84);
+  border: 2px solid black;
 }
