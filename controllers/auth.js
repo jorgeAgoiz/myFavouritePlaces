@@ -1,23 +1,37 @@
+const User = require("../models/user");
+
 exports.main = (req, res, next) => {
   res.render("main.ejs", {
     pageTitle: "Probando Probando",
   });
 };
 
-exports.signup = (req, res, next) => {
+exports.getSignUp = (req, res, next) => {
   res.render("signup.ejs", {
     pageTitle: "Sign Up",
   });
 };
 
-exports.signin = (req, res, next) => {
+exports.getSignIn = (req, res, next) => {
   res.render("signin.ejs", {
     pageTitle: "Sign In",
   });
 };
 
-exports.menu = (req, res, next) => {
+exports.postSignUp = (req, res, next) => {
   const { email, password, confirmPassword } = req.body;
 
-  console.log(req.body);
+  const user = new User({
+    email: email,
+    password: password,
+    collections: [],
+  });
+
+  return user
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.redirect("/");
+    })
+    .catch((err) => console.log(err));
 };

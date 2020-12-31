@@ -9,6 +9,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 //Import routes
 const { authRoute } = require("./routes/auth");
@@ -26,6 +27,15 @@ app.set("views", "views");
 app.use(authRoute);
 
 //Listen in .env.PORT
-app.listen(PORT, () => {
-  console.log(`Listening in port: ${PORT}`);
-});
+
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then((result) => {
+    app.listen(PORT, () => {
+      console.log(`Listening in port: ${PORT}`);
+    });
+  })
+  .catch((err) => console.log(err));
