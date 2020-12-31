@@ -15,6 +15,7 @@ const {
   getSignUp,
   postSignUp,
   postSignIn,
+  getUserMenu,
 } = require("../controllers/auth");
 
 // *********** Routes ***********
@@ -34,6 +35,9 @@ authRoute.post(
 // GET => "/signin"
 authRoute.get("/signin", getSignIn);
 // POST => "/signup"
-authRoute.post("/signin", postSignIn);
+authRoute.post("/signin", [validEmail, validPassword], postSignIn);
+
+//GET => "/usermenu"
+authRoute.get("/usermenu", getUserMenu);
 
 module.exports = { authRoute };
