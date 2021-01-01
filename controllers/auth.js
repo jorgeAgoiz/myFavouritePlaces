@@ -36,16 +36,29 @@ exports.postSignIn = (req, res, next) => {
 exports.getSignUp = (req, res, next) => {
   res.render("signup.ejs", {
     pageTitle: "Sign Up",
+    errorMessage: null,
   });
 };
 
-exports.postSignUp = (req, res, next) => {
+exports.postSignUp = async (req, res, next) => {
+  const { email, password } = req.body;
   const errors = validationResult(req);
+  const emailBussy = await User.findOne({ email: email });
+  if (emailBussy) {
+    console.log("Email is already registered.");
+    return res.status(422).render("signup.ejs", {
+      pageTitle: "Sign Up",
+      errorMessage: "Email is already registered.",
+    });
+  }
   if (!errors.isEmpty()) {
     console.log(errors);
-    return res.redirect("/");
+    return res.status(422).render("signup.ejs", {
+      pageTitle: "Sign Up",
+      errorMessage: errors.array()[0].msg,
+    });
   }
-  const { email, password } = req.body;
+
   bcrypt
     .hash(password, 12)
     .then((hashPass) => {

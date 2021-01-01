@@ -36,6 +36,12 @@ body {
 .inputStyles {
   border: 1px solid black;
 }
+.errorsMessage {
+  background-color: rgb(247, 130, 130);
+  font-weight: bold;
+  border-radius: 12px;
+  font-size: calc(0.6em + 0.6vw);
+}
 
 .btnStyle {
   background-color: rgb(167, 167, 167);

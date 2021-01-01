@@ -4,9 +4,15 @@
   <%- include('includes/navbar.ejs') %>
   <div class="container-fluid">
     <div class="row align-items-center justify-content-center">
+      <!-- <% if(errorMessage) { %>
+      <div class="col-12 text-center"><%= errorMessage %></div>
+      <% } %> -->
       <div
         class="col-10 col-sm-6 col-lg-4 col-xl-3 text-center mt-5 mb-5 pt-5 pb-5"
       >
+        <% if(errorMessage) { %>
+        <div class="col-12 text-center errorsMessage"><%= errorMessage %></div>
+        <% } %>
         <form method="POST" action="/signup">
           <label for="inputEmail3" class="labelForm">Email</label>
           <input

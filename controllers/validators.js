@@ -6,16 +6,7 @@ module.exports = {
     .trim()
     .isEmail()
     .normalizeEmail()
-    .withMessage("Must be a valid email.")
-    .custom((email) => {
-      return User.findOne({ email: email })
-        .then((result) => {
-          if (result) {
-            return Promise.reject("This email is already registeres.");
-          }
-        })
-        .catch((err) => console.log(err));
-    }),
+    .withMessage("Must be a valid email."),
   validPassword: body("password")
     .trim()
     .notEmpty()
