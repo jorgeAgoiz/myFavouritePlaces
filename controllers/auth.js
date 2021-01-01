@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { validationResult, buildCheckFunction } = require("express-validator");
+const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 
 exports.main = (req, res, next) => {
