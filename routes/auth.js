@@ -1,7 +1,7 @@
 //Express Routes
 const express = require("express");
 const authRoute = express.Router();
-//Packages
+//Package Validators
 const {
   validEmail,
   validPassword,

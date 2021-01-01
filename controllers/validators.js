@@ -2,6 +2,7 @@ const { check, body } = require("express-validator");
 const User = require("../models/user");
 
 module.exports = {
+  //Authentication Validators
   validEmail: body("email")
     .trim()
     .isEmail()
@@ -24,4 +25,13 @@ module.exports = {
       }
     })
     .withMessage("Passwords have to match."),
+  validTitle: body("title")
+    .trim()
+    .isLength({ min: 5, max: 30 })
+    .toUpperCase()
+    .withMessage("Enter a valid title."),
+  validDescription: body("description")
+    .trim()
+    .isLength({ min: 5, max: 400 })
+    .withMessage("A short description is needed."),
 };
