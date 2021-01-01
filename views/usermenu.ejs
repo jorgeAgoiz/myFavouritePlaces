@@ -1,18 +1,19 @@
 <%- include('includes/head.ejs') %>
-    <div class="container-fluid">
-        <%- include('includes/navbar.ejs') %>
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 text-center mt-5 mb-5 pt-5 pb-5">
-                    <form action="" method="post">
-                        <button class="btn btnStyleTwo" type="submit">View Collections</button>
-                    </form>
-                </div>
-                <div class="col-12 text-center mt-5 mb-5 pt-5 pb-5">
-                    <form action="" method="post">
-                        <button class="btn btnStyleTwo" type="submit">Create Collection</button>
-                    </form>
-                </div>
-            </div>
+<div class="container-fluid">
+  <%- include('includes/navbar.ejs') %>
+  <div class="row align-items-center justify-content-center">
+    <div class="col-12 text-center mt-5 mb-5 pt-5 pb-5">
+      <form action="" method="post">
+        <button class="btn btnStyleTwo" type="submit">View Collections</button>
+      </form>
     </div>
+    <div class="col-12 text-center mt-5 mb-5 pt-5 pb-5">
+      <form action="/createCollect" method="post">
+        <input type="hidden" name="id" value="<%= userId %>" />
+        <button class="btn btnStyleTwo" type="submit">Create Collection</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-    <%- include('includes/end.ejs') %>
+<%- include('includes/end.ejs') %>

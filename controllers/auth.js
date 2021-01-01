@@ -28,6 +28,7 @@ exports.postSignIn = (req, res, next) => {
 
   return User.findOne({ email: email })
     .then(async (result) => {
+      const userId = result._id;
       if (!result) {
         return res.status(422).render("signin.ejs", {
           pageTitle: "Sign In",
@@ -36,7 +37,7 @@ exports.postSignIn = (req, res, next) => {
       }
       const doMatch = await bcrypt.compare(password, result.password);
       if (doMatch) {
-        return res.redirect("/usermenu");
+        return res.redirect(`/usermenu/${userId}`);
       }
 
       return res.status(422).render("signin.ejs", {
@@ -90,7 +91,10 @@ exports.postSignUp = async (req, res, next) => {
 };
 
 exports.getUserMenu = (req, res, next) => {
+  const userId = req.params.userId;
+  console.log(userId);
   return res.render("usermenu.ejs", {
     pageTitle: "Menu",
+    userId: userId,
   });
 };

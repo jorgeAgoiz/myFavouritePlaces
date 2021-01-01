@@ -14,6 +14,7 @@ const flash = require("connect-flash");
 
 //Import routes
 const { authRoute } = require("./routes/auth");
+const { adminRoute } = require("./routes/admin");
 
 //Middlewares
 app.use(express.static(path.join(__dirname, "public"))); //To set the static files (css, js, etc)
@@ -27,6 +28,7 @@ app.set("views", "views");
 
 //Set middlewares routes
 app.use(authRoute);
+app.use(adminRoute);
 
 //Listen in .env.PORT
 mongoose

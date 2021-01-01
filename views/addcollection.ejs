@@ -1,0 +1,35 @@
+<%- include('includes/head.ejs') %>
+
+<div class="container-fluid">
+  <%- include('includes/navbar.ejs') %>
+  <div class="row align-items-center justify-content-center">
+    <div class="col-12 text-center mt-5 titleForms">
+      <h1>Create A Collection</h1>
+    </div>
+    <div
+      class="col-10 col-sm-6 col-lg-4 col-xl-3 text-center mt-2 mb-5 pt-5 pb-5"
+    >
+      <form method="POST" action="/saveCollect">
+        <label for="inputTitle" class="labelForm">Title</label>
+        <input
+          type="text"
+          class="form-control inputStyles"
+          id="inputTitle"
+          name="title"
+        />
+
+        <label for="inputDescription" class="labelForm">Description</label>
+        <input
+          type="text"
+          class="form-control inputStyles"
+          id="inputDescription"
+          name="description"
+        />
+        <input type="hidden" name="id" value="<%= userId %>" />
+        <button type="submit" class="btn btnStyle mt-2">Create</button>
+      </form>
+    </div>
+  </div>
+
+  <%- include('includes/end.ejs') %>
+</div>

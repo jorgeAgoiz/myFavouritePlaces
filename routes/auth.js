@@ -38,6 +38,6 @@ authRoute.get("/signin", getSignIn);
 authRoute.post("/signin", [validEmail, validPassword], postSignIn);
 
 //GET => "/usermenu"
-authRoute.get("/usermenu", getUserMenu);
+authRoute.get("/usermenu/:userId", getUserMenu);
 
 module.exports = { authRoute };
