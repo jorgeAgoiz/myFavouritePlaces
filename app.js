@@ -42,3 +42,6 @@ mongoose
     });
   })
   .catch((err) => console.log(err));
+
+/* Proximos pasos: Implementar las sesiones, guardarlas en mongodb, establecer un buen sistema de authentication, 
+  terminar algunas rutas como borrar coleccion, editar colection, editar lugar o borrar lugar.  */
