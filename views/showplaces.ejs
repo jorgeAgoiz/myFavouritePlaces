@@ -1,0 +1,40 @@
+<%- include('includes/head.ejs') %>
+<div class="container-fluid">
+  <%- include('includes/navbar.ejs') %> <% places.forEach( place => { %>
+  <div class="row align-items-center justify-content-center">
+    <div
+      class="col-12 col-sm-10 col-md-8 text-center mt-4 mb-4 pt-3 pb-3 placeCard"
+    >
+      <div class="row align-items-center justify-content-center">
+        <div class="col-12 pt-1 pb-1 mt-1 mb-1">
+          <h1><%= place.name %></h1>
+        </div>
+        <div class="col-12 pt-1 pb-1 mt-1 mb-1">
+          <h2><%= place.direction %></h2>
+        </div>
+        <div class="col-12 pt-1 pb-1 mt-1 mb-1">
+          <p><%= place.comments %></p>
+        </div>
+        <div class="col-6">
+          <form action="/viewPlaces" method="POST">
+            <input type="hidden" name="collectId" value="<%= collectId %>" />
+            <input type="hidden" name="userId" value="<%= userId %>" />
+            <button class="btn btnStyleThree" type="submit">Edit Place</button>
+          </form>
+        </div>
+        <div class="col-6">
+          <form action="/addplaces" method="POST">
+            <input type="hidden" name="collectId" value="<%= collectId %>" />
+            <input type="hidden" name="userId" value="<%= userId %>" />
+            <button class="btn btnStyleThree" type="submit">
+              Delete Place
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+</div>
+
+<%- include('includes/end.ejs') %>

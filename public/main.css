@@ -61,9 +61,56 @@ body {
   background-color: rgb(108, 131, 84);
   border: 2px solid black;
 }
+.btnStyleThree {
+  background-color: rgb(54, 54, 54);
+  border: 2px solid black;
+  color: rgb(255, 255, 255);
+  font-size: calc(0.8em + 0.6vw);
+  font-family: "Bebas Neue", cursive;
+}
+.btnStyleThree:hover {
+  border: 2px solid white;
+  background-color: rgb(108, 131, 84);
+  color: black;
+}
 
 .titleForms h1 {
   color: rgb(0, 0, 0);
   font-family: "Bangers", cursive;
   font-size: calc(2.2em + 1.6vw);
+}
+
+.collectCard {
+  background-color: rgb(117, 143, 132);
+  border-radius: 12px;
+  border: 2px solid black;
+}
+.collectCard h1 {
+  font-family: "Bangers", cursive;
+  font-size: calc(2em + 1.4vw);
+}
+.collectCard h2 {
+  font-family: "Euphoria Script", cursive;
+  font-weight: bold;
+  font-size: calc(1.2em + 1.2vw);
+}
+
+.placeCard {
+  background-color: rgb(107, 187, 154);
+  border-radius: 12px;
+  border: 2px solid black;
+}
+.placeCard h1 {
+  font-family: "Bangers", cursive;
+  font-size: calc(2em + 1.4vw);
+}
+.placeCard h2 {
+  font-family: "Andika New Basic", sans-serif;
+  font-weight: bold;
+  font-size: calc(1.2em + 1.2vw);
+}
+.placeCard p {
+  font-family: "Indie Flower", cursive;
+  font-weight: bold;
+  font-size: calc(1.2em + 1.2vw);
 }

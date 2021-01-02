@@ -3,12 +3,13 @@
   <%- include('includes/navbar.ejs') %>
   <div class="row align-items-center justify-content-center">
     <div class="col-12 text-center mt-5 mb-5 pt-5 pb-5">
-      <form action="" method="post">
+      <form action="/showCollect" method="POST">
+        <input type="hidden" name="id" value="<%= userId %>" />
         <button class="btn btnStyleTwo" type="submit">View Collections</button>
       </form>
     </div>
     <div class="col-12 text-center mt-5 mb-5 pt-5 pb-5">
-      <form action="/createCollect" method="post">
+      <form action="/createCollect" method="POST">
         <input type="hidden" name="id" value="<%= userId %>" />
         <button class="btn btnStyleTwo" type="submit">Create Collection</button>
       </form>

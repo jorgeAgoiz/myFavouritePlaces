@@ -5,12 +5,35 @@ const adminRoute = express.Router();
 const { validTitle, validDescription } = require("../controllers/validators");
 
 //Import the controllers
-const { postCreateCollect, saveCollect } = require("../controllers/admin");
+const {
+  postCreateCollect,
+  postSaveCollect,
+  postShowCollect,
+  postAddPlace,
+  postSavePlace,
+  postViewPlaces,
+} = require("../controllers/admin");
 
 // POST => "/createCollect"
 adminRoute.post("/createCollect", postCreateCollect);
 
 // POST => "/saveCollect"
-adminRoute.post("/saveCollect", [validTitle, validDescription], saveCollect);
+adminRoute.post(
+  "/saveCollect",
+  [validTitle, validDescription],
+  postSaveCollect
+);
+
+// POST => "/showCollect"
+adminRoute.post("/showCollect", postShowCollect);
+
+// POST => "/addplaces"
+adminRoute.post("/addplaces", postAddPlace);
+
+// POST => "/savePlace"
+adminRoute.post("/savePlace", postSavePlace);
+
+// POST => "/viewPlaces"
+adminRoute.post("/viewPlaces", postViewPlaces);
 
 module.exports = { adminRoute };
