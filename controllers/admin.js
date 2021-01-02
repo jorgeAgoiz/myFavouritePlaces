@@ -1,7 +1,6 @@
 // User model and Packages
 const User = require("../models/user");
 const { validationResult } = require("express-validator");
-const user = require("../models/user");
 
 exports.postCreateCollect = (req, res, next) => {
   const id = req.body.id;
@@ -9,6 +8,7 @@ exports.postCreateCollect = (req, res, next) => {
     pageTitle: "Add Collection",
     userId: id,
     errorMessage: null,
+    isAuthenticated: true,
   });
 };
 
@@ -20,14 +20,14 @@ exports.postSaveCollect = (req, res, next) => {
       pageTitle: "Add Collection",
       errorMessage: errors.array()[0].msg,
       userId: id,
+      isAuthenticated: true,
     });
   }
 
-  User.findOneAndUpdate(id, {
+  User.findByIdAndUpdate(id, {
     $push: { collections: { title: title, description: description } },
   })
     .then((result) => {
-      console.log(result);
       return res.redirect(`/usermenu/${result._id}`);
     })
     .catch((err) => console.log(err));
@@ -42,6 +42,7 @@ exports.postShowCollect = (req, res, next) => {
         pageTitle: "My Collections",
         collects: user.collections,
         userId: user._id,
+        isAuthenticated: true,
       });
     })
     .catch((err) => console.log(err));
@@ -53,6 +54,7 @@ exports.postAddPlace = (req, res, next) => {
     pageTitle: "Save Place",
     collectId: collectId,
     userId: userId,
+    isAuthenticated: true,
   });
 };
 
@@ -85,6 +87,7 @@ exports.postSavePlace = (req, res, next) => {
         pageTitle: "My Collections",
         collects: result.collections,
         userId: result._id,
+        isAuthenticated: true,
       });
     })
     .catch((err) => console.log(err));
@@ -101,7 +104,6 @@ exports.postViewPlaces = (req, res, next) => {
           arrayPlaces = colls.places;
         }
       }
-      console.log(arrayPlaces);
       return arrayPlaces;
     })
     .then((places) => {
@@ -110,6 +112,7 @@ exports.postViewPlaces = (req, res, next) => {
         places: places,
         userId: userId,
         collectId: collectId,
+        isAuthenticated: true,
       });
     })
     .catch((err) => console.log(err));

@@ -16,6 +16,7 @@ const {
   postSignUp,
   postSignIn,
   getUserMenu,
+  getLogOut,
 } = require("../controllers/auth");
 
 // *********** Routes ***********
@@ -39,5 +40,8 @@ authRoute.post("/signin", [validEmail, validPassword], postSignIn);
 
 //GET => "/usermenu"
 authRoute.get("/usermenu/:userId", getUserMenu);
+
+//GET => "/logout"
+authRoute.get("/logout", getLogOut);
 
 module.exports = { authRoute };

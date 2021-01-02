@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 exports.main = (req, res, next) => {
   res.render("main.ejs", {
     pageTitle: "Probando Probando",
+    isAuthenticated: false,
   });
 };
 
@@ -12,6 +13,7 @@ exports.getSignIn = (req, res, next) => {
   res.render("signin.ejs", {
     pageTitle: "Sign In",
     errorMessage: null,
+    isAuthenticated: false,
   });
 };
 
@@ -23,6 +25,7 @@ exports.postSignIn = (req, res, next) => {
     return res.status(422).render("signin.ejs", {
       pageTitle: "Sign In",
       errorMessage: errors.array()[0].msg,
+      isAuthenticated: false,
     });
   }
 
@@ -33,6 +36,7 @@ exports.postSignIn = (req, res, next) => {
         return res.status(422).render("signin.ejs", {
           pageTitle: "Sign In",
           errorMessage: "Email not found",
+          isAuthenticated: false,
         });
       }
       const doMatch = await bcrypt.compare(password, result.password);
@@ -43,6 +47,7 @@ exports.postSignIn = (req, res, next) => {
       return res.status(422).render("signin.ejs", {
         pageTitle: "Sign In",
         errorMessage: "Incorrect Password",
+        isAuthenticated: false,
       });
     })
     .catch((err) => console.log(err));
@@ -52,6 +57,7 @@ exports.getSignUp = (req, res, next) => {
   res.render("signup.ejs", {
     pageTitle: "Sign Up",
     errorMessage: null,
+    isAuthenticated: false,
   });
 };
 
@@ -63,6 +69,7 @@ exports.postSignUp = async (req, res, next) => {
     return res.status(422).render("signup.ejs", {
       pageTitle: "Sign Up",
       errorMessage: "Email is already registered.",
+      isAuthenticated: false,
     });
   }
   if (!errors.isEmpty()) {
@@ -70,6 +77,7 @@ exports.postSignUp = async (req, res, next) => {
     return res.status(422).render("signup.ejs", {
       pageTitle: "Sign Up",
       errorMessage: errors.array()[0].msg,
+      isAuthenticated: false,
     });
   }
 
@@ -84,7 +92,6 @@ exports.postSignUp = async (req, res, next) => {
       return user.save();
     })
     .then((user) => {
-      console.log(user);
       res.redirect("/");
     })
     .catch((err) => console.log(err));
@@ -92,9 +99,14 @@ exports.postSignUp = async (req, res, next) => {
 
 exports.getUserMenu = (req, res, next) => {
   const userId = req.params.userId;
-  console.log(userId);
+
   return res.render("usermenu.ejs", {
     pageTitle: "Menu",
     userId: userId,
+    isAuthenticated: true,
   });
+};
+
+exports.getLogOut = (req, res, next) => {
+  return res.redirect("/");
 };
