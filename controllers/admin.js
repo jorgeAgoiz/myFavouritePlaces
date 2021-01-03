@@ -166,7 +166,6 @@ exports.postDeletePlace = (req, res, next) => {
 exports.postEditPlace = async (req, res, next) => {
   const { collectId, userId, placeId } = req.body;
   
-
   User.findById(userId)
     .then(user => {
       console.log(user);
@@ -185,7 +184,7 @@ exports.postEditPlace = async (req, res, next) => {
         }
       }
 
-      console.log(result);
+      console.log(result); 
       /* Me planto aqui por hoy, falta renderizar el editar lugar y implementar su ruta
       correspondiente. */
 
