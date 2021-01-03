@@ -183,11 +183,10 @@ exports.postEditPlace = async (req, res, next) => {
           result = mp;
         }
       }
-
       console.log(result); 
-      /* Me planto aqui por hoy, falta renderizar el editar lugar y implementar su ruta
-      correspondiente. */
-
     })
     .catch(err => console.log(err));
+    /* Me planto aqui por hoy, falta renderizar el editar lugar y implementar su ruta
+      correspondiente. */
+
 };
