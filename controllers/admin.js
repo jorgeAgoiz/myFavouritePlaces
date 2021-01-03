@@ -117,3 +117,78 @@ exports.postViewPlaces = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.postDeleteCollection = (req, res, next) => {
+  const { collectId, userId } = req.body;
+  
+  User.findById(userId)
+    .then(user => {
+      console.log(user);
+      user.collections.pull({_id: collectId});
+      user.save();
+      return res.render("showcollection.ejs", {
+        pageTitle: "My Collections",
+        collects: user.collections,
+        userId: user._id,
+        isAuthenticated: true,
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postDeletePlace = (req, res, next) => {
+  const { collectId, userId, placeId } = req.body;
+  
+  User.findById(userId)
+    .then(user => {
+      let collects = user.collections;
+      let theCollect = [];
+      for(let coll of collects){
+        if(coll._id.toString() === collectId.toString()){
+          coll.places.pull({_id: placeId});
+          theCollect = coll.places;
+        }
+      }
+      user.collections = collects;
+      user.save();
+      console.log(theCollect);
+      return res.render("showplaces.ejs", {
+        pageTitle: "Places",
+        places: theCollect,
+        userId: userId,
+        collectId: collectId,
+        isAuthenticated: true,
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postEditPlace = async (req, res, next) => {
+  const { collectId, userId, placeId } = req.body;
+  
+
+  User.findById(userId)
+    .then(user => {
+      console.log(user);
+      const collects = user.collections;
+      let myPlaces = [];
+      for(let coll of collects){
+        if(coll._id.toString() === collectId.toString()){
+          myPlaces = coll.places;
+        }
+      }
+
+      let result = {};
+      for(let mp of myPlaces){
+        if(mp._id.toString() === placeId.toString()){
+          result = mp;
+        }
+      }
+
+      console.log(result);
+      /* Me planto aqui por hoy, falta renderizar el editar lugar y implementar su ruta
+      correspondiente. */
+
+    })
+    .catch(err => console.log(err));
+};

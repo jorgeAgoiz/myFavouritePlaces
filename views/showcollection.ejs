@@ -33,7 +33,9 @@
           </form>
         </div>
         <div class="col-4">
-          <form action="" method="post">
+          <form action="/deletecollection" method="POST">
+            <input type="hidden" name="collectId" value="<%= coll._id %>" />
+            <input type="hidden" name="userId" value="<%= userId %>" />
             <button class="btn btnStyleThree" type="submit">
               Delete <br />
               Collection
