@@ -28,7 +28,11 @@ exports.postSaveCollect = (req, res, next) => {
     $push: { collections: { title: title, description: description } },
   })
     .then((result) => {
-      return res.redirect(`/usermenu/${result._id}`);
+      if(!result){
+        return res.redirect(`/usermenu/${id}`);
+      }else{
+        return res.redirect(`/usermenu/${result._id}`);
+      } 
     })
     .catch((err) => console.log(err));
 };
@@ -38,6 +42,10 @@ exports.postShowCollect = (req, res, next) => {
 
   User.findById(id)
     .then((user) => {
+      if(!user){
+        return res.redirect(`/usermenu/${id}`);
+      }
+
       return res.render("showcollection.ejs", {
         pageTitle: "My Collections",
         collects: user.collections,
@@ -56,14 +64,29 @@ exports.postAddPlace = (req, res, next) => {
     userId: userId,
     isAuthenticated: true,
     editMode: false,
+    errorMessage: null,
   });
 };
 
 exports.postSavePlace = (req, res, next) => {
   const { userId, collectId, name, direction, comments } = req.body;
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).render("addplace.ejs", {
+      pageTitle: "Save Place",
+      collectId: collectId,
+      userId: userId,
+      isAuthenticated: true,
+      editMode: false,
+      errorMessage: errors.array()[0].msg,
+    });
+  }
 
   User.findById(userId)
     .then((user) => {
+      if(!user){
+        return res.redirect(`/usermenu/${userId}`);
+      }
       let arrayColl = user.collections;
       let newPlace = arrayColl.find(
         (coll) => coll._id.toString() === collectId.toString()
@@ -98,6 +121,9 @@ exports.postViewPlaces = (req, res, next) => {
   const { userId, collectId } = req.body;
   User.findById(userId)
     .then((user) => {
+      if(!user){
+        return res.redirect(`/usermenu/${userId}`);
+      }
       const arrayColl = user.collections;
       let arrayPlaces = [];
       for (let colls of arrayColl) {
@@ -124,6 +150,9 @@ exports.postDeleteCollection = (req, res, next) => {
 
   User.findById(userId)
     .then(user => {
+      if(!user){
+        return res.redirect(`/usermenu/${userId}`);
+      }
       console.log(user);
       user.collections.pull({ _id: collectId });
       user.save();
@@ -142,6 +171,9 @@ exports.postDeletePlace = (req, res, next) => {
 
   User.findById(userId)
     .then(user => {
+      if(!user){
+        return res.redirect(`/usermenu/${userId}`);
+      }
       let collects = user.collections;
       let theCollect = [];
       for (let coll of collects) {
@@ -169,6 +201,9 @@ exports.postEditPlace = async (req, res, next) => {
 
   User.findById(userId)
     .then(user => {
+      if(!user){
+        return res.redirect(`/usermenu/${userId}`);
+      }
       const collects = user.collections;
       let myPlaces = [];
       for (let coll of collects) {
@@ -187,9 +222,11 @@ exports.postEditPlace = async (req, res, next) => {
         pageTitle: "Edit Place",
         collectId: collectId,
         userId: userId,
+        placeId: placeId,
         isAuthenticated: true,
         editPlace: result,
         editMode: true,
+        errorMessage: null,
       });
     })
     .catch(err => console.log(err));
@@ -198,16 +235,36 @@ exports.postEditPlace = async (req, res, next) => {
 exports.postEditSavePlace = (req, res, next) => {
   const { userId, collectId, placeId, name, direction, comments } = req.body;
 
-  User.findById(userId)
+  const errors = validationResult(req);
+  const errorEdit = {
+    name, 
+    direction, 
+    comments,
+  };
+  if(!errors.isEmpty()){
+    return res.status(422).render("addplace.ejs", {
+      pageTitle: "Save Place",
+      collectId: collectId,
+      userId: userId,
+      placeId: placeId,
+      isAuthenticated: true,
+      editPlace: errorEdit,
+      editMode: true,
+      errorMessage: errors.array()[0].msg,
+    });
+  }
+
+  return User.findById(userId)
     .then(user => {
+      if(!user){
+        return res.redirect(`/usermenu/${userId}`);
+      }
       let colls = user.collections;
       let places = [];
       for(let co of colls){
-
         if(co._id.toString() === collectId.toString()){
           
           for(let edtPlc of co.places){
-
             if(edtPlc._id.toString() === placeId.toString()){
               edtPlc.name = name;
               edtPlc.direction = direction;

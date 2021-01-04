@@ -25,7 +25,7 @@ module.exports = {
       }
     })
     .withMessage("Passwords have to match."),
-  validTitle: body("title")
+  validTitle: body("title")// ************ Add Collections and Add Places Validators
     .trim()
     .isLength({ min: 5, max: 30 })
     .toUpperCase()
@@ -33,5 +33,18 @@ module.exports = {
   validDescription: body("description")
     .trim()
     .isLength({ min: 5, max: 400 })
+    .withMessage("A short description is needed."),
+  validDirection: body("direction")
+    .trim()
+    .isLength({min: 10, max: 50})
+    .withMessage("Enter a valid direction."),
+  validName: body("name")
+    .trim()
+    .isLength({min: 3, max: 30})
+    .toUpperCase()
+    .withMessage("Enter a valid name."),
+  validComments: body("comments")
+    .trim()
+    .isLength({min: 5, max: 400 })
     .withMessage("A short description is needed."),
 };

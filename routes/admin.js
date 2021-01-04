@@ -2,7 +2,7 @@
 const express = require("express");
 const adminRoute = express.Router();
 //Package Validators
-const { validTitle, validDescription } = require("../controllers/validators");
+const { validTitle, validDescription, validDirection, validComments, validName } = require("../controllers/validators");
 
 //Import the controllers
 const {
@@ -35,7 +35,7 @@ adminRoute.post("/showCollect", postShowCollect);
 adminRoute.post("/addplaces", postAddPlace);
 
 // POST => "/savePlace"
-adminRoute.post("/savePlace", postSavePlace);
+adminRoute.post("/savePlace", [validName, validDirection, validComments], postSavePlace);
 
 // POST => "/viewPlaces"
 adminRoute.post("/viewPlaces", postViewPlaces);
@@ -50,6 +50,6 @@ adminRoute.post("/deleteplace", postDeletePlace);
 adminRoute.post("/editplace", postEditPlace);
 
 //POST => "/editsaveplace"
-adminRoute.post("/editsaveplace", postEditSavePlace);
+adminRoute.post("/editsaveplace", [validName, validDirection, validComments], postEditSavePlace);
 
 module.exports = { adminRoute };
