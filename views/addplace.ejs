@@ -4,18 +4,23 @@
   <%- include('includes/navbar.ejs') %>
   <div class="row align-items-center justify-content-center">
     <div class="col-12 text-center mt-5 titleForms">
-      <h1>Add A Place</h1>
+      <% if(editMode) { %>
+        <h1>Edit Place</h1>
+      <% } else { %>
+        <h1>Add A Place</h1>
+      <% } %>
     </div>
     <div
       class="col-10 col-sm-6 col-lg-4 col-xl-3 text-center mt-2 mb-5 pt-5 pb-5"
     >
-      <form method="POST" action="/savePlace">
+      <form method="POST" action="<% if(editMode) { %> /editsaveplace <% } else { %> /savePlace <% } %>">
         <label for="inputName" class="labelForm">Name</label>
         <input
           type="text"
           class="form-control inputStyles"
           id="inputName"
           name="name"
+          value="<%= (editMode) ? editPlace.name : ''%>"
         />
 
         <label for="inputDirection" class="labelForm">Direction</label>
@@ -24,6 +29,7 @@
           class="form-control inputStyles"
           id="inputDirection"
           name="direction"
+          value="<%= (editMode) ? editPlace.direction : ''%>"
         />
 
         <label for="inputComments" class="labelForm">Comments</label>
@@ -32,8 +38,12 @@
           class="form-control inputStyles"
           id="inputComments"
           name="comments"
+          value="<%= (editMode) ? editPlace.comments : ''%>"
         />
         <input type="hidden" name="userId" value="<%= userId %>" />
+        <% if(editMode) { %>
+          <input type="hidden" name="placeId" value="<%= editPlace._id %>" />
+        <% } %>
         <input type="hidden" name="collectId" value="<%= collectId %>" />
         <button type="submit" class="btn btnStyle mt-3">Save</button>
       </form>

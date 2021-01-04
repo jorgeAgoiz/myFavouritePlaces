@@ -14,7 +14,8 @@ const {
   postViewPlaces,
   postDeleteCollection,
   postDeletePlace, 
-  postEditPlace
+  postEditPlace,
+  postEditSavePlace
 } = require("../controllers/admin");
 
 // POST => "/createCollect"
@@ -47,5 +48,8 @@ adminRoute.post("/deleteplace", postDeletePlace);
 
 //POST => "/editplace"
 adminRoute.post("/editplace", postEditPlace);
+
+//POST => "/editsaveplace"
+adminRoute.post("/editsaveplace", postEditSavePlace);
 
 module.exports = { adminRoute };

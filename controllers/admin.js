@@ -55,6 +55,7 @@ exports.postAddPlace = (req, res, next) => {
     collectId: collectId,
     userId: userId,
     isAuthenticated: true,
+    editMode: false,
   });
 };
 
@@ -120,11 +121,11 @@ exports.postViewPlaces = (req, res, next) => {
 
 exports.postDeleteCollection = (req, res, next) => {
   const { collectId, userId } = req.body;
-  
+
   User.findById(userId)
     .then(user => {
       console.log(user);
-      user.collections.pull({_id: collectId});
+      user.collections.pull({ _id: collectId });
       user.save();
       return res.render("showcollection.ejs", {
         pageTitle: "My Collections",
@@ -138,14 +139,14 @@ exports.postDeleteCollection = (req, res, next) => {
 
 exports.postDeletePlace = (req, res, next) => {
   const { collectId, userId, placeId } = req.body;
-  
+
   User.findById(userId)
     .then(user => {
       let collects = user.collections;
       let theCollect = [];
-      for(let coll of collects){
-        if(coll._id.toString() === collectId.toString()){
-          coll.places.pull({_id: placeId});
+      for (let coll of collects) {
+        if (coll._id.toString() === collectId.toString()) {
+          coll.places.pull({ _id: placeId });
           theCollect = coll.places;
         }
       }
@@ -165,28 +166,68 @@ exports.postDeletePlace = (req, res, next) => {
 
 exports.postEditPlace = async (req, res, next) => {
   const { collectId, userId, placeId } = req.body;
-  
+
   User.findById(userId)
     .then(user => {
-      console.log(user);
       const collects = user.collections;
       let myPlaces = [];
-      for(let coll of collects){
-        if(coll._id.toString() === collectId.toString()){
+      for (let coll of collects) {
+        if (coll._id.toString() === collectId.toString()) {
           myPlaces = coll.places;
         }
       }
 
       let result = {};
-      for(let mp of myPlaces){
-        if(mp._id.toString() === placeId.toString()){
+      for (let mp of myPlaces) {
+        if (mp._id.toString() === placeId.toString()) {
           result = mp;
         }
       }
-      console.log(result); 
+      return res.render("addplace.ejs", {
+        pageTitle: "Edit Place",
+        collectId: collectId,
+        userId: userId,
+        isAuthenticated: true,
+        editPlace: result,
+        editMode: true,
+      });
     })
     .catch(err => console.log(err));
-    /* Me planto aqui por hoy, falta renderizar el editar lugar y implementar su ruta
-      correspondiente. */
-
 };
+
+exports.postEditSavePlace = (req, res, next) => {
+  const { userId, collectId, placeId, name, direction, comments } = req.body;
+
+  User.findById(userId)
+    .then(user => {
+      let colls = user.collections;
+      let places = [];
+      for(let co of colls){
+
+        if(co._id.toString() === collectId.toString()){
+          
+          for(let edtPlc of co.places){
+
+            if(edtPlc._id.toString() === placeId.toString()){
+              edtPlc.name = name;
+              edtPlc.direction = direction;
+              edtPlc.comments = comments;
+            }
+          }
+          places = co.places;
+        }
+      }
+      user.save();
+      return res.render("showplaces.ejs", {
+        pageTitle: "Places",
+        places: places,
+        userId: userId,
+        collectId: collectId,
+        isAuthenticated: true,
+      });
+    
+    })      
+    .catch(err => console.log(err));
+};
+
+
