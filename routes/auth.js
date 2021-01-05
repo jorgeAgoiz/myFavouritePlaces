@@ -39,7 +39,7 @@ authRoute.get("/signin", getSignIn);
 authRoute.post("/signin", [validEmail, validPassword], postSignIn);
 
 //GET => "/usermenu"
-authRoute.get("/usermenu/:userId", getUserMenu);
+authRoute.get("/usermenu", getUserMenu);
 
 //GET => "/logout"
 authRoute.get("/logout", getLogOut);

@@ -28,11 +28,11 @@ exports.postSaveCollect = (req, res, next) => {
     $push: { collections: { title: title, description: description } },
   })
     .then((result) => {
-      if(!result){
-        return res.redirect(`/usermenu/${id}`);
-      }else{
-        return res.redirect(`/usermenu/${result._id}`);
-      } 
+      if (!result) {
+        return res.redirect(`/usermenu`);
+      } else {
+        return res.redirect(`/usermenu`);
+      }
     })
     .catch((err) => console.log(err));
 };
@@ -42,8 +42,8 @@ exports.postShowCollect = (req, res, next) => {
 
   User.findById(id)
     .then((user) => {
-      if(!user){
-        return res.redirect(`/usermenu/${id}`);
+      if (!user) {
+        return res.redirect(`/usermenu`);
       }
 
       return res.render("showcollection.ejs", {
@@ -71,7 +71,7 @@ exports.postAddPlace = (req, res, next) => {
 exports.postSavePlace = (req, res, next) => {
   const { userId, collectId, name, direction, comments } = req.body;
   const errors = validationResult(req);
-  if(!errors.isEmpty()){
+  if (!errors.isEmpty()) {
     return res.status(422).render("addplace.ejs", {
       pageTitle: "Save Place",
       collectId: collectId,
@@ -84,8 +84,8 @@ exports.postSavePlace = (req, res, next) => {
 
   User.findById(userId)
     .then((user) => {
-      if(!user){
-        return res.redirect(`/usermenu/${userId}`);
+      if (!user) {
+        return res.redirect(`/usermenu`);
       }
       let arrayColl = user.collections;
       let newPlace = arrayColl.find(
@@ -119,10 +119,12 @@ exports.postSavePlace = (req, res, next) => {
 
 exports.postViewPlaces = (req, res, next) => {
   const { userId, collectId } = req.body;
+  console.log(req.user.collections[0].places[0].name);
+
   User.findById(userId)
     .then((user) => {
-      if(!user){
-        return res.redirect(`/usermenu/${userId}`);
+      if (!user) {
+        return res.redirect(`/usermenu`);
       }
       const arrayColl = user.collections;
       let arrayPlaces = [];
@@ -149,9 +151,9 @@ exports.postDeleteCollection = (req, res, next) => {
   const { collectId, userId } = req.body;
 
   User.findById(userId)
-    .then(user => {
-      if(!user){
-        return res.redirect(`/usermenu/${userId}`);
+    .then((user) => {
+      if (!user) {
+        return res.redirect(`/usermenu`);
       }
       console.log(user);
       user.collections.pull({ _id: collectId });
@@ -163,16 +165,16 @@ exports.postDeleteCollection = (req, res, next) => {
         isAuthenticated: true,
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 exports.postDeletePlace = (req, res, next) => {
   const { collectId, userId, placeId } = req.body;
 
   User.findById(userId)
-    .then(user => {
-      if(!user){
-        return res.redirect(`/usermenu/${userId}`);
+    .then((user) => {
+      if (!user) {
+        return res.redirect(`/usermenu`);
       }
       let collects = user.collections;
       let theCollect = [];
@@ -193,16 +195,16 @@ exports.postDeletePlace = (req, res, next) => {
         isAuthenticated: true,
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 exports.postEditPlace = async (req, res, next) => {
   const { collectId, userId, placeId } = req.body;
 
   User.findById(userId)
-    .then(user => {
-      if(!user){
-        return res.redirect(`/usermenu/${userId}`);
+    .then((user) => {
+      if (!user) {
+        return res.redirect(`/usermenu`);
       }
       const collects = user.collections;
       let myPlaces = [];
@@ -229,7 +231,7 @@ exports.postEditPlace = async (req, res, next) => {
         errorMessage: null,
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 exports.postEditSavePlace = (req, res, next) => {
@@ -237,11 +239,11 @@ exports.postEditSavePlace = (req, res, next) => {
 
   const errors = validationResult(req);
   const errorEdit = {
-    name, 
-    direction, 
+    name,
+    direction,
     comments,
   };
-  if(!errors.isEmpty()){
+  if (!errors.isEmpty()) {
     return res.status(422).render("addplace.ejs", {
       pageTitle: "Save Place",
       collectId: collectId,
@@ -255,17 +257,16 @@ exports.postEditSavePlace = (req, res, next) => {
   }
 
   return User.findById(userId)
-    .then(user => {
-      if(!user){
-        return res.redirect(`/usermenu/${userId}`);
+    .then((user) => {
+      if (!user) {
+        return res.redirect(`/usermenu`);
       }
       let colls = user.collections;
       let places = [];
-      for(let co of colls){
-        if(co._id.toString() === collectId.toString()){
-          
-          for(let edtPlc of co.places){
-            if(edtPlc._id.toString() === placeId.toString()){
+      for (let co of colls) {
+        if (co._id.toString() === collectId.toString()) {
+          for (let edtPlc of co.places) {
+            if (edtPlc._id.toString() === placeId.toString()) {
               edtPlc.name = name;
               edtPlc.direction = direction;
               edtPlc.comments = comments;
@@ -282,9 +283,6 @@ exports.postEditSavePlace = (req, res, next) => {
         collectId: collectId,
         isAuthenticated: true,
       });
-    
-    })      
-    .catch(err => console.log(err));
+    })
+    .catch((err) => console.log(err));
 };
-
-

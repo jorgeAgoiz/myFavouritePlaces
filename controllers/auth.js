@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 exports.main = (req, res, next) => {
   res.render("main.ejs", {
-    pageTitle: "Probando Probando",
+    pageTitle: "My Places",
     isAuthenticated: false,
   });
 };
@@ -41,7 +41,12 @@ exports.postSignIn = (req, res, next) => {
       }
       const doMatch = await bcrypt.compare(password, result.password);
       if (doMatch) {
-        return res.redirect(`/usermenu/${userId}`);
+        req.session.user = result;
+        return req.session.save((err) => {
+          if (err) console.log(err);
+
+          return res.redirect(`/usermenu`);
+        });
       }
 
       return res.status(422).render("signin.ejs", {
@@ -98,8 +103,7 @@ exports.postSignUp = async (req, res, next) => {
 };
 
 exports.getUserMenu = (req, res, next) => {
-  const userId = req.params.userId;
-
+  const userId = req.user._id;
   return res.render("usermenu.ejs", {
     pageTitle: "Menu",
     userId: userId,
@@ -108,5 +112,9 @@ exports.getUserMenu = (req, res, next) => {
 };
 
 exports.getLogOut = (req, res, next) => {
-  return res.redirect("/");
+  req.session.destroy((err) => {
+    if (err) console.log(err);
+
+    return res.redirect("/");
+  });
 };
