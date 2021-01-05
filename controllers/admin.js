@@ -119,7 +119,6 @@ exports.postSavePlace = (req, res, next) => {
 
 exports.postViewPlaces = (req, res, next) => {
   const { userId, collectId } = req.body;
-  console.log(req.user.collections[0].places[0].name);
 
   User.findById(userId)
     .then((user) => {
@@ -155,7 +154,7 @@ exports.postDeleteCollection = (req, res, next) => {
       if (!user) {
         return res.redirect(`/usermenu`);
       }
-      console.log(user);
+
       user.collections.pull({ _id: collectId });
       user.save();
       return res.render("showcollection.ejs", {
@@ -186,7 +185,7 @@ exports.postDeletePlace = (req, res, next) => {
       }
       user.collections = collects;
       user.save();
-      console.log(theCollect);
+
       return res.render("showplaces.ejs", {
         pageTitle: "Places",
         places: theCollect,

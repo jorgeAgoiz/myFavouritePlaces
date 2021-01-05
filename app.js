@@ -78,5 +78,5 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-/* Proximos pasos: Implementar las sesiones, guardarlas en mongodb, establecer un buen sistema de authentication, 
-  terminar algunas rutas como borrar coleccion, editar colection, editar lugar o borrar lugar.  */
+/* Proximos pasos: Investigar como se destruye la session al cerrar el navegador, implementar 
+el npm csurf para los tokens y empezar con la API de leafleet  */
