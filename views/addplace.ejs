@@ -5,18 +5,21 @@
   <div class="row align-items-center justify-content-center">
     <div class="col-12 text-center mt-5 titleForms">
       <% if(editMode) { %>
-        <h1>Edit Place</h1>
+      <h1>Edit Place</h1>
       <% } else { %>
-        <h1>Add A Place</h1>
+      <h1>Add A Place</h1>
       <% } %>
     </div>
     <div
       class="col-10 col-sm-6 col-lg-4 col-xl-3 text-center mt-2 mb-5 pt-5 pb-5"
     >
-    <% if(errorMessage) { %>
+      <% if(errorMessage) { %>
       <div class="col-12 text-center errorsMessage"><%= errorMessage %></div>
-    <% } %>
-      <form method="POST" action="<% if(editMode) { %> /editsaveplace <% } else { %> /savePlace <% } %>">
+      <% } %>
+      <form
+        method="POST"
+        action="<% if(editMode) { %> /editsaveplace <% } else { %> /savePlace <% } %>"
+      >
         <label for="inputName" class="labelForm">Name</label>
         <input
           type="text"
@@ -43,9 +46,8 @@
           name="comments"
           value="<%= (editMode) ? editPlace.comments : ''%>"
         />
-        <input type="hidden" name="userId" value="<%= userId %>" />
         <% if(editMode) { %>
-          <input type="hidden" name="placeId" value="<%= placeId %>" />
+        <input type="hidden" name="placeId" value="<%= placeId %>" />
         <% } %>
         <input type="hidden" name="collectId" value="<%= collectId %>" />
         <button type="submit" class="btn btnStyle mt-3">Save</button>

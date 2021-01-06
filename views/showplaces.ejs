@@ -18,7 +18,6 @@
         <div class="col-6">
           <form action="/editplace" method="POST">
             <input type="hidden" name="collectId" value="<%= collectId %>" />
-            <input type="hidden" name="userId" value="<%= userId %>" />
             <input type="hidden" name="placeId" value="<%= place._id %>" />
             <button class="btn btnStyleThree" type="submit">Edit Place</button>
           </form>
@@ -26,7 +25,6 @@
         <div class="col-6">
           <form action="/deleteplace" method="POST">
             <input type="hidden" name="collectId" value="<%= collectId %>" />
-            <input type="hidden" name="userId" value="<%= userId %>" />
             <input type="hidden" name="placeId" value="<%= place._id %>" />
             <button class="btn btnStyleThree" type="submit">
               Delete Place

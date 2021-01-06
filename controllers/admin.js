@@ -3,7 +3,7 @@ const User = require("../models/user");
 const { validationResult } = require("express-validator");
 
 exports.postCreateCollect = (req, res, next) => {
-  const id = req.body.id;
+  const id = req.user._id;
   return res.render("addcollection.ejs", {
     pageTitle: "Add Collection",
     userId: id,
@@ -13,8 +13,10 @@ exports.postCreateCollect = (req, res, next) => {
 };
 
 exports.postSaveCollect = (req, res, next) => {
-  const { id, title, description } = req.body;
+  const { title, description } = req.body;
+  const id = req.user._id;
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(422).render("addcollection.ejs", {
       pageTitle: "Add Collection",
@@ -38,7 +40,7 @@ exports.postSaveCollect = (req, res, next) => {
 };
 
 exports.postShowCollect = (req, res, next) => {
-  const { id } = req.body;
+  const id = req.user._id;
 
   User.findById(id)
     .then((user) => {
@@ -57,7 +59,8 @@ exports.postShowCollect = (req, res, next) => {
 };
 
 exports.postAddPlace = (req, res, next) => {
-  const { userId, collectId } = req.body;
+  const { collectId } = req.body;
+  const userId = req.user._id;
   return res.render("addplace.ejs", {
     pageTitle: "Save Place",
     collectId: collectId,
@@ -69,7 +72,8 @@ exports.postAddPlace = (req, res, next) => {
 };
 
 exports.postSavePlace = (req, res, next) => {
-  const { userId, collectId, name, direction, comments } = req.body;
+  const { collectId, name, direction, comments } = req.body;
+  const userId = req.user._id;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("addplace.ejs", {
@@ -118,7 +122,8 @@ exports.postSavePlace = (req, res, next) => {
 };
 
 exports.postViewPlaces = (req, res, next) => {
-  const { userId, collectId } = req.body;
+  const { collectId } = req.body;
+  const userId = req.user._id;
 
   User.findById(userId)
     .then((user) => {
@@ -147,7 +152,8 @@ exports.postViewPlaces = (req, res, next) => {
 };
 
 exports.postDeleteCollection = (req, res, next) => {
-  const { collectId, userId } = req.body;
+  const { collectId } = req.body;
+  const userId = req.user._id;
 
   User.findById(userId)
     .then((user) => {
@@ -168,7 +174,8 @@ exports.postDeleteCollection = (req, res, next) => {
 };
 
 exports.postDeletePlace = (req, res, next) => {
-  const { collectId, userId, placeId } = req.body;
+  const { collectId, placeId } = req.body;
+  const userId = req.user._id;
 
   User.findById(userId)
     .then((user) => {
@@ -198,7 +205,8 @@ exports.postDeletePlace = (req, res, next) => {
 };
 
 exports.postEditPlace = async (req, res, next) => {
-  const { collectId, userId, placeId } = req.body;
+  const { collectId, placeId } = req.body;
+  const userId = req.user._id;
 
   User.findById(userId)
     .then((user) => {
@@ -234,7 +242,8 @@ exports.postEditPlace = async (req, res, next) => {
 };
 
 exports.postEditSavePlace = (req, res, next) => {
-  const { userId, collectId, placeId, name, direction, comments } = req.body;
+  const { collectId, placeId, name, direction, comments } = req.body;
+  const userId = req.user._id;
 
   const errors = validationResult(req);
   const errorEdit = {

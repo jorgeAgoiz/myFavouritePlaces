@@ -15,7 +15,6 @@
         <div class="col-4">
           <form action="/viewPlaces" method="POST">
             <input type="hidden" name="collectId" value="<%= coll._id %>" />
-            <input type="hidden" name="userId" value="<%= userId %>" />
             <button class="btn btnStyleThree" type="submit">
               View <br />
               Places
@@ -25,7 +24,6 @@
         <div class="col-4">
           <form action="/addplaces" method="POST">
             <input type="hidden" name="collectId" value="<%= coll._id %>" />
-            <input type="hidden" name="userId" value="<%= userId %>" />
             <button class="btn btnStyleThree" type="submit">
               Add <br />
               Places
@@ -35,7 +33,6 @@
         <div class="col-4">
           <form action="/deletecollection" method="POST">
             <input type="hidden" name="collectId" value="<%= coll._id %>" />
-            <input type="hidden" name="userId" value="<%= userId %>" />
             <button class="btn btnStyleThree" type="submit">
               Delete <br />
               Collection

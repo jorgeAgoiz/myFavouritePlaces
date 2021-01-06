@@ -25,6 +25,7 @@ const store = new MongoDBStore({
 //Import routes
 const { authRoute } = require("./routes/auth");
 const { adminRoute } = require("./routes/admin");
+const { notFound } = require("./controllers/errors");
 
 //Middlewares
 app.use(express.static(path.join(__dirname, "public"))); //To set the static files (css, js, etc)
@@ -64,6 +65,7 @@ app.use((req, res, next) => {
 }); //Se ejecutara en cada peticion para volver a pasar el req.user actualizado en cada peticion
 app.use(authRoute);
 app.use(adminRoute);
+app.use(notFound);
 
 //Listen in .env.PORT
 mongoose
