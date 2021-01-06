@@ -1,5 +1,7 @@
 // User model and Packages
 const User = require("../models/user");
+const { Client } = require("@googlemaps/google-maps-services-js");
+const client = new Client({});
 const { validationResult } = require("express-validator");
 
 exports.postCreateCollect = (req, res, next) => {
@@ -71,7 +73,7 @@ exports.postAddPlace = (req, res, next) => {
   });
 };
 
-exports.postSavePlace = (req, res, next) => {
+exports.postSavePlace = async (req, res, next) => {
   const { collectId, name, direction, comments } = req.body;
   const userId = req.user._id;
   const errors = validationResult(req);
@@ -86,6 +88,13 @@ exports.postSavePlace = (req, res, next) => {
     });
   }
 
+  const coordinates = await client.geocode({
+    params: {
+      address: direction,
+      key: process.env.MAPS_API_KEY,
+    },
+  });
+
   User.findById(userId)
     .then((user) => {
       if (!user) {
@@ -96,9 +105,14 @@ exports.postSavePlace = (req, res, next) => {
         (coll) => coll._id.toString() === collectId.toString()
       );
 
+      const lat = coordinates.data.results[0].geometry.location.lat;
+      const long = coordinates.data.results[0].geometry.location.lng;
+
       newPlace.places.push({
         name: name,
         direction: direction,
+        latitude: lat,
+        length: long,
         comments: comments,
       });
 
@@ -146,6 +160,8 @@ exports.postViewPlaces = (req, res, next) => {
         userId: userId,
         collectId: collectId,
         isAuthenticated: true,
+        mapsApiKey: process.env.MAPS_API_KEY,
+        mapBox: process.env.MAPBOX_TOKEN,
       });
     })
     .catch((err) => console.log(err));
@@ -241,7 +257,7 @@ exports.postEditPlace = async (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.postEditSavePlace = (req, res, next) => {
+exports.postEditSavePlace = async (req, res, next) => {
   const { collectId, placeId, name, direction, comments } = req.body;
   const userId = req.user._id;
 
@@ -264,6 +280,13 @@ exports.postEditSavePlace = (req, res, next) => {
     });
   }
 
+  const coordinates = await client.geocode({
+    params: {
+      address: direction,
+      key: process.env.MAPS_API_KEY,
+    },
+  });
+
   return User.findById(userId)
     .then((user) => {
       if (!user) {
@@ -277,6 +300,9 @@ exports.postEditSavePlace = (req, res, next) => {
             if (edtPlc._id.toString() === placeId.toString()) {
               edtPlc.name = name;
               edtPlc.direction = direction;
+              edtPlc.latitude =
+                coordinates.data.results[0].geometry.location.lat;
+              edtPlc.length = coordinates.data.results[0].geometry.location.lng;
               edtPlc.comments = comments;
             }
           }

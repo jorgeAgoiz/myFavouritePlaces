@@ -1,3 +1,4 @@
+const { Double, Long } = require("mongodb");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -28,6 +29,14 @@ const userSchema = new Schema({
           },
           direction: {
             type: String,
+            required: true,
+          },
+          latitude: {
+            type: Number,
+            required: true,
+          },
+          length: {
+            type: Number,
             required: true,
           },
           comments: {
