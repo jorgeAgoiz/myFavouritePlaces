@@ -16,6 +16,17 @@
         <div class="col-12 pt-1 pb-1 mt-1 mb-1">
           <p><%= place.comments %></p>
         </div>
+        <div class="col-10 mt-2 mb-2" id="mapid">
+          <a
+            href="https://maps.google.com/maps?q=<%= place.latitude %>,<%= place.length %>"
+          >
+            <img
+              src="https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=200x200&maptype=roadmap
+              &markers=color:red%7Clabel:P%7C<%= place.latitude %>,<%= place.length %>&key=<%= mapsApiKeyTwo %>"
+              alt="Map View"
+            />
+          </a>
+        </div>
         <div class="col-6">
           <form action="/editplace" method="POST">
             <input type="hidden" name="collectId" value="<%= collectId %>" />
@@ -33,33 +44,9 @@
             </button>
           </form>
         </div>
-        <div class="col-4" id="mapid"></div>
       </div>
     </div>
   </div>
-
-  <script>
-    let map;
-    let lat = "<%= place.latitude %>";
-    let latNum = parseFloat(lat);
-    let lng = "<%= place.length %>";
-    let lngNum = parseFloat(lng);
-    let mymap = L.map("mapid").setView([latNum, lngNum], 15);
-
-    L.tileLayer(
-      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-      {
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: "mapbox/outdoors-v11",
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: "<%= mapBox %>",
-      }
-    ).addTo(mymap);
-    var marker = L.marker([latNum, lngNum]).addTo(mymap);
-  </script>
 
   <% }) %>
 </div>

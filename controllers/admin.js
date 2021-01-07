@@ -161,7 +161,7 @@ exports.postViewPlaces = (req, res, next) => {
         collectId: collectId,
         isAuthenticated: true,
         mapsApiKey: process.env.MAPS_API_KEY,
-        mapBox: process.env.MAPBOX_TOKEN,
+        mapsApiKeyTwo: process.env.MAPS_API_KEY_2,
       });
     })
     .catch((err) => console.log(err));
@@ -315,6 +315,7 @@ exports.postEditSavePlace = async (req, res, next) => {
         places: places,
         userId: userId,
         collectId: collectId,
+        mapsApiKeyTwo: process.env.MAPS_API_KEY_2,
         isAuthenticated: true,
       });
     })

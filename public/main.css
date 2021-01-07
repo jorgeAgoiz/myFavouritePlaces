@@ -115,6 +115,6 @@ body {
   font-size: calc(1.2em + 1.2vw);
 }
 
-#mapid {
-  height: 200px;
+#mapid img {
+  border: 2px solid black;
 }
