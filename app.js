@@ -79,6 +79,3 @@ mongoose
     });
   })
   .catch((err) => console.log(err));
-
-/* Proximos pasos: Investigar como se destruye la session al cerrar el navegador, implementar 
-el npm csurf para los tokens y empezar con la API de leafleet  */
